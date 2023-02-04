@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "grpcb/storage";
+
+package storage;
+
+service Storage {
+    rpc SaveRecord (Record) returns (Response);
+    rpc GetRecords (Query) returns (RecordsRespone);
+    rpc GetReport (Query) returns (Report);
+}
+
+message Record {
+    string location = 1;
+    google.protobuf.Timestamp timestamp = 2;
+    string signature = 3;
+    float material = 4;
+    float a = 5;
+    float b = 6;
+    float c = 7;
+    float d = 8;
+}
+
+enum Status {
+    FAIL = 0;
+    SUCCESS = 1;
+}
+
+message Response {
+    Status status = 1;
+}
+
+message Query {
+    string location = 1;
+    google.protobuf.Timestamp date = 2;
+}
+
+message RecordsRespone {
+    repeated Record records = 1;
+}
+
+message Report {
+    string location = 1;
+    google.protobuf.Timestamp date = 2;
+    int32 count = 3;
+    float material = 4;
+    float a = 5;
+    float b = 6;
+    float c = 7;
+    float d = 8;
+}
