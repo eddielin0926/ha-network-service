@@ -5,6 +5,7 @@ import (
 	"ha-network-service/business/initialize"
 	"ha-network-service/business/routes"
 	"ha-network-service/grpcpb/inventory"
+	"ha-network-service/grpcpb/storage"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -13,7 +14,8 @@ import (
 )
 
 var (
-	addr = flag.String("addr", "localhost:8100", "the address to connect to")
+	inventoryUrl = flag.String("inv", "localhost:8100", "the inventory address for connection")
+	storageUrl   = flag.String("stor", "localhost:8200", "the storage address for connection")
 )
 
 func init() {
@@ -21,18 +23,28 @@ func init() {
 }
 
 func main() {
+	// CLI flag
 	flag.Parse()
-	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+
+	// Inventory gRPC
+	invConn, err := grpc.Dial(*inventoryUrl, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
-	defer conn.Close()
-	c := inventory.NewInventoryClient(conn)
+	defer invConn.Close()
+	invc := inventory.NewInventoryClient(invConn)
 
+	// Storage gRPC
+	storConn, err := grpc.Dial(*storageUrl, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer storConn.Close()
+	storc := storage.NewStorageClient(storConn)
+
+	// Gin
 	app := gin.Default()
-
-	route := routes.NewApiRoute(c)
+	route := routes.NewApiRoute(invc, storc)
 	route.Setup(app)
-
 	app.Run()
 }

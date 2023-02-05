@@ -1,22 +1,20 @@
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
-
 option go_package = "ha-network-service/grpcpb/storage";
 
 package storage;
 
 service Storage {
     rpc SaveRecord (Record) returns (Response);
-    rpc GetRecords (Query) returns (RecordsRespone);
+    rpc GetRecords (Query) returns (RecordsResponse);
     rpc GetReport (Query) returns (Report);
 }
 
 message Record {
     string location = 1;
-    google.protobuf.Timestamp timestamp = 2;
+    string timestamp = 2;
     string signature = 3;
-    float material = 4;
+    int32 material = 4;
     float a = 5;
     float b = 6;
     float c = 7;
@@ -34,18 +32,18 @@ message Response {
 
 message Query {
     string location = 1;
-    google.protobuf.Timestamp date = 2;
+    string date = 2;
 }
 
-message RecordsRespone {
+message RecordsResponse {
     repeated Record records = 1;
 }
 
 message Report {
     string location = 1;
-    google.protobuf.Timestamp date = 2;
+    string date = 2;
     int32 count = 3;
-    float material = 4;
+    int32 material = 4;
     float a = 5;
     float b = 6;
     float c = 7;

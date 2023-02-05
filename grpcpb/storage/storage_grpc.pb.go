@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type StorageClient interface {
 	SaveRecord(ctx context.Context, in *Record, opts ...grpc.CallOption) (*Response, error)
-	GetRecords(ctx context.Context, in *Query, opts ...grpc.CallOption) (*RecordsRespone, error)
+	GetRecords(ctx context.Context, in *Query, opts ...grpc.CallOption) (*RecordsResponse, error)
 	GetReport(ctx context.Context, in *Query, opts ...grpc.CallOption) (*Report, error)
 }
 
@@ -44,8 +44,8 @@ func (c *storageClient) SaveRecord(ctx context.Context, in *Record, opts ...grpc
 	return out, nil
 }
 
-func (c *storageClient) GetRecords(ctx context.Context, in *Query, opts ...grpc.CallOption) (*RecordsRespone, error) {
-	out := new(RecordsRespone)
+func (c *storageClient) GetRecords(ctx context.Context, in *Query, opts ...grpc.CallOption) (*RecordsResponse, error) {
+	out := new(RecordsResponse)
 	err := c.cc.Invoke(ctx, "/storage.Storage/GetRecords", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -67,7 +67,7 @@ func (c *storageClient) GetReport(ctx context.Context, in *Query, opts ...grpc.C
 // for forward compatibility
 type StorageServer interface {
 	SaveRecord(context.Context, *Record) (*Response, error)
-	GetRecords(context.Context, *Query) (*RecordsRespone, error)
+	GetRecords(context.Context, *Query) (*RecordsResponse, error)
 	GetReport(context.Context, *Query) (*Report, error)
 	mustEmbedUnimplementedStorageServer()
 }
@@ -79,7 +79,7 @@ type UnimplementedStorageServer struct {
 func (UnimplementedStorageServer) SaveRecord(context.Context, *Record) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SaveRecord not implemented")
 }
-func (UnimplementedStorageServer) GetRecords(context.Context, *Query) (*RecordsRespone, error) {
+func (UnimplementedStorageServer) GetRecords(context.Context, *Query) (*RecordsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRecords not implemented")
 }
 func (UnimplementedStorageServer) GetReport(context.Context, *Query) (*Report, error) {

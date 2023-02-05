@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
-        "grpcpb"
+        "gonic",
+        "grpcpb",
+        "invc",
+        "protobuf",
+        "storc",
+        "timestamppb"
     ]
 }
