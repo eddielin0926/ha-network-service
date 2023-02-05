@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "grpcb/storage";
+option go_package = "ha-network-service/grpcpb/storage";
 
 package storage;
 

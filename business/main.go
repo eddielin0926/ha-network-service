@@ -1,8 +1,8 @@
 package main
 
 import (
-	"business/initialize"
-	"business/routes"
+	"ha-network-service/business/initialize"
+	"ha-network-service/business/routes"
 
 	"github.com/gin-gonic/gin"
 )

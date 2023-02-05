@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "grpcb/inventory";
+option go_package = "ha-network-service/grpcpb/inventory";
 
 package inventory;
 
@@ -10,6 +10,9 @@ service Inventory {
 
 message Order {
     int32 a = 1;
+    int32 b = 2;
+    int32 c = 3;
+    int32 d = 4;
 }
 
 message Material {

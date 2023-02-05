@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"business/models"
+	"ha-network-service/business/models"
 	"net/http"
 	"time"
 
@@ -21,6 +21,7 @@ func order(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Fail to read body"})
 		return
 	}
+
 	ctx.JSON(http.StatusOK, gin.H{"success": true})
 }
 
@@ -33,6 +34,7 @@ func record(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Fail to read body"})
 		return
 	}
+
 	ctx.JSON(http.StatusOK, gin.H{})
 }
 
@@ -45,5 +47,6 @@ func report(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Fail to read body"})
 		return
 	}
+
 	ctx.JSON(http.StatusOK, gin.H{})
 }
