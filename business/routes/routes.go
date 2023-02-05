@@ -105,7 +105,7 @@ func (r *apiRoute) record(ctx *gin.Context) {
 	}
 	bin, _ := m.Marshal(storRet)
 
-	ctx.JSON(http.StatusOK, bin)
+	ctx.Data(http.StatusOK, gin.MIMEJSON, bin)
 }
 
 func (r *apiRoute) report(ctx *gin.Context) {
@@ -134,5 +134,5 @@ func (r *apiRoute) report(ctx *gin.Context) {
 	}
 	bin, _ := m.Marshal(storRet)
 
-	ctx.JSON(http.StatusOK, bin)
+	ctx.Data(http.StatusOK, gin.MIMEJSON, bin)
 }
