@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type InventoryClient interface {
-	Get(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Material, error)
+	GetMaterial(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Material, error)
 }
 
 type inventoryClient struct {
@@ -33,9 +33,9 @@ func NewInventoryClient(cc grpc.ClientConnInterface) InventoryClient {
 	return &inventoryClient{cc}
 }
 
-func (c *inventoryClient) Get(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Material, error) {
+func (c *inventoryClient) GetMaterial(ctx context.Context, in *Order, opts ...grpc.CallOption) (*Material, error) {
 	out := new(Material)
-	err := c.cc.Invoke(ctx, "/inventory.Inventory/Get", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/inventory.Inventory/GetMaterial", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (c *inventoryClient) Get(ctx context.Context, in *Order, opts ...grpc.CallO
 // All implementations must embed UnimplementedInventoryServer
 // for forward compatibility
 type InventoryServer interface {
-	Get(context.Context, *Order) (*Material, error)
+	GetMaterial(context.Context, *Order) (*Material, error)
 	mustEmbedUnimplementedInventoryServer()
 }
 
@@ -54,8 +54,8 @@ type InventoryServer interface {
 type UnimplementedInventoryServer struct {
 }
 
-func (UnimplementedInventoryServer) Get(context.Context, *Order) (*Material, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+func (UnimplementedInventoryServer) GetMaterial(context.Context, *Order) (*Material, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMaterial not implemented")
 }
 func (UnimplementedInventoryServer) mustEmbedUnimplementedInventoryServer() {}
 
@@ -70,20 +70,20 @@ func RegisterInventoryServer(s grpc.ServiceRegistrar, srv InventoryServer) {
 	s.RegisterService(&Inventory_ServiceDesc, srv)
 }
 
-func _Inventory_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Inventory_GetMaterial_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Order)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InventoryServer).Get(ctx, in)
+		return srv.(InventoryServer).GetMaterial(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/inventory.Inventory/Get",
+		FullMethod: "/inventory.Inventory/GetMaterial",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InventoryServer).Get(ctx, req.(*Order))
+		return srv.(InventoryServer).GetMaterial(ctx, req.(*Order))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -96,8 +96,8 @@ var Inventory_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*InventoryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Get",
-			Handler:    _Inventory_Get_Handler,
+			MethodName: "GetMaterial",
+			Handler:    _Inventory_GetMaterial_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

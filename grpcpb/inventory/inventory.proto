@@ -5,7 +5,7 @@ option go_package = "ha-network-service/grpcpb/inventory";
 package inventory;
 
 service Inventory {
-    rpc Get (Order) returns (Material);
+    rpc GetMaterial (Order) returns (Material);
 }
 
 message Order {
