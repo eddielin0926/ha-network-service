@@ -34,7 +34,7 @@ func (r *apiRoute) Setup(app *gin.Engine) {
 	api := app.Group("api")
 	api.POST("/order", r.order)
 	api.GET("/record", r.record)
-	api.POST("/report", r.report)
+	api.GET("/report", r.report)
 }
 
 func (r *apiRoute) order(c *gin.Context) {
@@ -106,20 +106,22 @@ func (r *apiRoute) record(ctx *gin.Context) {
 }
 
 func (r *apiRoute) report(ctx *gin.Context) {
-	var body struct {
-		Location string `json:"location"`
-		Date     string `json:"date"`
+	location := ctx.Query("location")
+	if location == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "missing location"})
+		return
 	}
-	if ctx.Bind(&body) != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Fail to read body"})
+	date := ctx.Query("date")
+	if date == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "missing date"})
 		return
 	}
 
 	storCtx, storCancel := context.WithTimeout(context.Background(), time.Second)
 	defer storCancel()
 	storRet, err := r.storageClient.GetReport(storCtx, &storage.Query{
-		Location: body.Location,
-		Date:     body.Date,
+		Location: location,
+		Date:     date,
 	})
 	if err != nil {
 		log.Fatalf("could not store record: %v", err)
