@@ -25,6 +25,3 @@ bin/
 
 # Go workspace file
 go.work
-
-# Vscode workdapce file
-.vscode/**/*
