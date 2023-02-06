@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "business"
+		},
+		{
+			"path": "grpcpb"
+		},
+		{
+			"path": "inventory"
+		},
+		{
+			"path": "storage"
+		},
+		{
+			"path": "tester"
+		}
+	]
+}

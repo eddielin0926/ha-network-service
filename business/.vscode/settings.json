@@ -3,7 +3,9 @@
         "gonic",
         "grpcpb",
         "invc",
+        "MIMEJSON",
         "protobuf",
+        "protojson",
         "storc",
         "timestamppb"
     ]

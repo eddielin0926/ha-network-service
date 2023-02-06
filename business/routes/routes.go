@@ -3,6 +3,7 @@ package routes
 import (
 	"context"
 	"ha-network-service/business/models"
+	"ha-network-service/grpcpb"
 	"ha-network-service/grpcpb/inventory"
 	"ha-network-service/grpcpb/storage"
 	"log"
@@ -10,7 +11,6 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"google.golang.org/protobuf/encoding/protojson"
 )
 
 type ApiRoute interface {
@@ -99,11 +99,7 @@ func (r *apiRoute) record(ctx *gin.Context) {
 		log.Fatalf("could not store record: %v", err)
 	}
 
-	m := protojson.MarshalOptions{
-		UseEnumNumbers:  true,
-		EmitUnpopulated: true,
-	}
-	bin, _ := m.Marshal(storRet)
+	bin, _ := grpcpb.ProtobufToJson(storRet)
 
 	ctx.Data(http.StatusOK, gin.MIMEJSON, bin)
 }
@@ -128,11 +124,7 @@ func (r *apiRoute) report(ctx *gin.Context) {
 		log.Fatalf("could not store record: %v", err)
 	}
 
-	m := protojson.MarshalOptions{
-		UseEnumNumbers:  true,
-		EmitUnpopulated: true,
-	}
-	bin, _ := m.Marshal(storRet)
+	bin, _ := grpcpb.ProtobufToJson(storRet)
 
 	ctx.Data(http.StatusOK, gin.MIMEJSON, bin)
 }
