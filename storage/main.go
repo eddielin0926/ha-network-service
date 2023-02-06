@@ -3,10 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"ha-network-service/grpcpb/storage"
-	"ha-network-service/storage/server"
 	"log"
 	"net"
+
+	"github.com/eddielin0926/ha-network-service/grpcpb/storage"
+	"github.com/eddielin0926/ha-network-service/storage/server"
 
 	"google.golang.org/grpc"
 )

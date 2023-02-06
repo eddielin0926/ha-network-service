@@ -1,4 +1,4 @@
-module ha-network-service/business
+module github.com/eddielin0926/ha-network-service/business
 
 go 1.19
 
@@ -34,5 +34,3 @@ require (
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
-
-replace ha-network-service/grpcpb => ../grpcpb

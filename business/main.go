@@ -2,11 +2,12 @@ package main
 
 import (
 	"flag"
-	"ha-network-service/business/initialize"
-	"ha-network-service/business/routes"
-	"ha-network-service/grpcpb/inventory"
-	"ha-network-service/grpcpb/storage"
 	"log"
+
+	"github.com/eddielin0926/ha-network-service/business/initialize"
+	"github.com/eddielin0926/ha-network-service/business/routes"
+	"github.com/eddielin0926/ha-network-service/grpcpb/inventory"
+	"github.com/eddielin0926/ha-network-service/grpcpb/storage"
 
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"

@@ -3,8 +3,9 @@ package server
 import (
 	"context"
 	"encoding/base64"
-	"ha-network-service/grpcpb/inventory"
 	"strconv"
+
+	"github.com/eddielin0926/ha-network-service/grpcpb/inventory"
 )
 
 type inventoryServer struct {

@@ -1,4 +1,4 @@
-module ha-network-service/grpcpb
+module github.com/eddielin0926/ha-network-service/grpcpb
 
 go 1.19
 

@@ -3,10 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"ha-network-service/grpcpb/inventory"
-	"ha-network-service/inventory/server"
 	"log"
 	"net"
+
+	"github.com/eddielin0926/ha-network-service/grpcpb/inventory"
+	"github.com/eddielin0926/ha-network-service/inventory/server"
 
 	"google.golang.org/grpc"
 )

@@ -2,13 +2,14 @@ package routes
 
 import (
 	"context"
-	"ha-network-service/business/models"
-	"ha-network-service/grpcpb"
-	"ha-network-service/grpcpb/inventory"
-	"ha-network-service/grpcpb/storage"
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/eddielin0926/ha-network-service/business/models"
+	"github.com/eddielin0926/ha-network-service/grpcpb"
+	"github.com/eddielin0926/ha-network-service/grpcpb/inventory"
+	"github.com/eddielin0926/ha-network-service/grpcpb/storage"
 
 	"github.com/gin-gonic/gin"
 )

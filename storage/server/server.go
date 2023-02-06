@@ -2,7 +2,8 @@ package server
 
 import (
 	"context"
-	"ha-network-service/grpcpb/storage"
+
+	"github.com/eddielin0926/ha-network-service/grpcpb/storage"
 )
 
 type storageServer struct {
