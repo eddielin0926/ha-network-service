@@ -3,8 +3,8 @@ module github.com/eddielin0926/ha-network-service/storage
 go 1.19
 
 require (
+	github.com/eddielin0926/ha-network-service/grpcpb v0.0.0-20230206054301-dd5180271fcb
 	google.golang.org/grpc v1.52.3
-	ha-network-service/grpcpb v0.0.0-00010101000000-000000000000
 )
 
 require (

@@ -3,8 +3,8 @@ module github.com/eddielin0926/ha-network-service/business
 go 1.19
 
 require (
+	github.com/eddielin0926/ha-network-service/grpcpb v0.0.0-20230206054301-dd5180271fcb
 	github.com/gin-gonic/gin v1.8.2
-	ha-network-service/grpcpb v0.0.0-00010101000000-000000000000
 )
 
 require (

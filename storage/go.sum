@@ -1,3 +1,5 @@
+github.com/eddielin0926/ha-network-service/grpcpb v0.0.0-20230206054301-dd5180271fcb h1:UWjXE6HuUaxk0F0mPOMwzbtWneWYBkWW2HVROCw3y+8=
+github.com/eddielin0926/ha-network-service/grpcpb v0.0.0-20230206054301-dd5180271fcb/go.mod h1:gPLZvijcF+S8/+3ThF60wWo/HKO9yNkm7a1zGwyICsY=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=
 github.com/golang/protobuf v1.5.2 h1:ROPKBNFfQgOUMifHyP+KYbvpjbdoFNs+aK7DXlji0Tw=
 github.com/golang/protobuf v1.5.2/go.mod h1:XVQd3VNwM+JqD3oG2Ue2ip4fOMUkwXdXDdiuN0vRsmY=
