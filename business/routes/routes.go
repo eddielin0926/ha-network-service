@@ -2,6 +2,7 @@ package routes
 
 import (
 	"context"
+	"encoding/json"
 	"log"
 	"net/http"
 	"time"
@@ -101,8 +102,13 @@ func (r *apiRoute) record(ctx *gin.Context) {
 	}
 
 	bin, _ := grpcpb.ProtobufToJson(storRet)
+	var data models.Records
+	err = json.Unmarshal(bin, &data)
+	if err != nil {
+		log.Println("Unmarshal fail")
+	}
 
-	ctx.Data(http.StatusOK, gin.MIMEJSON, bin)
+	ctx.JSON(http.StatusOK, data.Records)
 }
 
 func (r *apiRoute) report(ctx *gin.Context) {

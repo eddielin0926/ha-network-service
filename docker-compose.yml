@@ -1,0 +1,34 @@
+version: "3"
+services:
+  business:
+    image: hans-business
+    build: ./business
+    environment:
+      PORT: 8100
+      INVENTORY_URL: inventory:8200
+      STORAGE_URL: storage:8300
+    ports:
+      - 8100:8100
+    depends_on:
+      - inventory
+      - storage
+    networks:
+      - hans
+  inventory:
+    image: hans-inventory
+    build: ./inventory
+    environment:
+      PORT: 8200
+    networks:
+      - hans
+  storage:
+    image: hans-storage
+    build: ./storage
+    environment:
+      PORT: 8300
+    networks:
+      - hans
+  
+networks:
+  hans:
+    driver: bridge

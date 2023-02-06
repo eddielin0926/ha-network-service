@@ -10,3 +10,7 @@ type Record struct {
 	C         float32 `json:"c"`
 	D         float32 `json:"d"`
 }
+
+type Records struct {
+	Records []Record
+}

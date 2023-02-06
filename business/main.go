@@ -1,8 +1,8 @@
 package main
 
 import (
-	"flag"
 	"log"
+	"os"
 
 	"github.com/eddielin0926/ha-network-service/business/initialize"
 	"github.com/eddielin0926/ha-network-service/business/routes"
@@ -14,21 +14,16 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-var (
-	inventoryUrl = flag.String("inv", "localhost:8100", "the inventory address for connection")
-	storageUrl   = flag.String("stor", "localhost:8200", "the storage address for connection")
-)
-
 func init() {
 	initialize.LoadEnv()
 }
 
 func main() {
-	// CLI flag
-	flag.Parse()
+	inventoryUrl := os.Getenv("INVENTORY_URL")
+	storageUrl := os.Getenv("STORAGE_URL")
 
 	// Inventory gRPC
-	invConn, err := grpc.Dial(*inventoryUrl, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	invConn, err := grpc.Dial(inventoryUrl, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -36,7 +31,7 @@ func main() {
 	invc := inventory.NewInventoryClient(invConn)
 
 	// Storage gRPC
-	storConn, err := grpc.Dial(*storageUrl, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	storConn, err := grpc.Dial(storageUrl, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
