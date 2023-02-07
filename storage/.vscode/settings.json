@@ -1,5 +1,9 @@
 {
     "cSpell.words": [
-        "grpcpb"
+        "dbname",
+        "dbport",
+        "gorm",
+        "grpcpb",
+        "protojson"
     ]
 }
