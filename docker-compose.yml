@@ -1,7 +1,7 @@
 version: "3"
 services:
   business:
-    image: hans/business
+    image: hans-business
     build: ./business
     environment:
       PORT: 8100
@@ -17,14 +17,14 @@ services:
     networks:
       - hasnet
   inventory:
-    image: hans/inventory
+    image: hans-inventory
     build: ./inventory
     environment:
       PORT: 8200
     networks:
       - hasnet
   storage:
-    image: hans/storage
+    image: hans-storage
     build: ./storage
     depends_on:
       database:
