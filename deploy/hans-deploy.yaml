@@ -1,0 +1,147 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database
+spec:
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+      - name: database
+        image: mysql:8.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: database-config
+              key: database-name
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-secret
+              key: database-password
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storage
+spec:
+  selector:
+    matchLabels:
+      app: storage
+  template:
+    metadata:
+      labels:
+        app: storage
+    spec:
+      containers:
+      - name: storage
+        image: eddielin0926/hans-storage
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8300
+        env:
+        - name: PORT
+          value: "8300"
+        - name: DB_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: database-config
+              key: database-url
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: database-secret
+              key: database-username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-secret
+              key: database-password
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: database-config
+              key: database-name
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory
+spec:
+  selector:
+    matchLabels:
+      app: inventory
+  template:
+    metadata:
+      labels:
+        app: inventory
+    spec:
+      containers:
+      - name: inventory
+        image: eddielin0926/hans-inventory
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8200
+        env:
+        - name: PORT
+          value: "8200"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: business
+spec:
+  selector:
+    matchLabels:
+      app: business
+  template:
+    metadata:
+      labels:
+        app: business
+    spec:
+      containers:
+      - name: business
+        image: eddielin0926/hans-business
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8100
+        env:
+        - name: PORT
+          value: "8100"
+        - name: INVENTORY_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+             name: inventory-config
+             key: inventory-url
+        - name: INVENTORY_PORT
+          value: "8100"
+        - name: STORAGE_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: storage-config
+              key: storage-url
+        - name: STORAGE_PORT
+          value: "8300"

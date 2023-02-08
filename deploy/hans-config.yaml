@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-config
+data:
+  database-name: hansdb
+  database-url: database-service
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: storage-config
+data:
+  storage-url: storage-service
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: inventory-config
+data:
+  inventory-url: inventory-service

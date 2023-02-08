@@ -26,3 +26,17 @@ docker-compose up -d --build
 ```shell
 docker-compose down
 ```
+
+## Kubernetes
+
+### Start
+
+```shell
+kubectl apply -f deploy
+```
+
+### Stop
+
+```shell
+kubectl delete -f deploy
+```
