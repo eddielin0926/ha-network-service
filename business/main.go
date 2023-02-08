@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -19,11 +20,15 @@ func init() {
 }
 
 func main() {
-	inventoryUrl := os.Getenv("INVENTORY_URL")
-	storageUrl := os.Getenv("STORAGE_URL")
+	invaddr := os.Getenv("INVENTORY_ADDRESS")
+	invport := os.Getenv("INVENTORY_PORT")
+	storaddr := os.Getenv("STORAGE_ADDRESS")
+	storport := os.Getenv("STORAGE_PORT")
+	invurl := fmt.Sprintf("%s:%s", invaddr, invport)
+	storurl := fmt.Sprintf("%s:%s", storaddr, storport)
 
 	// Inventory gRPC
-	invConn, err := grpc.Dial(inventoryUrl, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	invConn, err := grpc.Dial(invurl, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -31,7 +36,7 @@ func main() {
 	invc := inventory.NewInventoryClient(invConn)
 
 	// Storage gRPC
-	storConn, err := grpc.Dial(storageUrl, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	storConn, err := grpc.Dial(storurl, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}

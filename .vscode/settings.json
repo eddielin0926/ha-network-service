@@ -1,5 +1,12 @@
 {
     "cSpell.words": [
-        "gonic"
+        "dbhost",
+        "dbname",
+        "dbpasswd",
+        "dbport",
+        "dbuser",
+        "gonic",
+        "grpcpb",
+        "hansdb"
     ]
 }

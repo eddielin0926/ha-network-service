@@ -1,12 +1,14 @@
 version: "3"
 services:
   business:
-    image: hans-business
+    image: hans/business
     build: ./business
     environment:
       PORT: 8100
-      INVENTORY_URL: inventory:8200
-      STORAGE_URL: storage:8300
+      INVENTORY_ADDRESS: inventory
+      INVENTORY_PORT: 8200
+      STORAGE_ADDRESS: storage
+      STORAGE_PORT: 8300
     ports:
       - 8100:8100
     depends_on:
@@ -15,14 +17,14 @@ services:
     networks:
       - hasnet
   inventory:
-    image: hans-inventory
+    image: hans/inventory
     build: ./inventory
     environment:
       PORT: 8200
     networks:
       - hasnet
   storage:
-    image: hans-storage
+    image: hans/storage
     build: ./storage
     depends_on:
       database:
@@ -30,6 +32,7 @@ services:
     restart: always
     environment:
       PORT: 8300
+      DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_ADDRESS: database
       DB_PORT: 3306
