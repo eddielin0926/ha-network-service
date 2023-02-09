@@ -16,7 +16,9 @@ func main() {
 	port := os.Getenv("PORT")
 	lis, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%v", port))
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		log.Fatalf("Failed to listen port %v", err)
+	} else {
+		log.Printf("Inventory is now listening on port %s", port)
 	}
 	var opts []grpc.ServerOption
 	grpcServer := grpc.NewServer(opts...)

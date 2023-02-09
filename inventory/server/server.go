@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"encoding/base64"
+	"log"
 	"strconv"
 
 	"github.com/eddielin0926/ha-network-service/grpcpb/inventory"
@@ -20,6 +21,7 @@ func (s *inventoryServer) GetMaterial(ctx context.Context, in *inventory.Order) 
 	a, b, c, d := in.GetA(), in.GetB(), in.GetC(), in.GetD()
 	material := a*3 + b*2 + c*4 + d*10
 	signature := s.sign(a, b, c, d)
+	log.Printf("GetMaterial(a: %v, b: %v, c: %v, d: %v) return material: %v, signature: %v", a, b, c, d, material, signature)
 	return &inventory.Material{Material: material, Signature: signature}, nil
 }
 

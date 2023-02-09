@@ -137,7 +137,7 @@ spec:
              name: inventory-config
              key: inventory-url
         - name: INVENTORY_PORT
-          value: "8100"
+          value: "8200"
         - name: STORAGE_ADDRESS
           valueFrom:
             configMapKeyRef:
