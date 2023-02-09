@@ -1,0 +1,10 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hans-ingress
+spec:
+  defaultBackend:
+    service:
+      name: business-service
+      port:
+        number: 8100
