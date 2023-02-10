@@ -1,0 +1,44 @@
+[
+    {
+        "location": "l1",
+        "timestamp": "2023-01-01",
+        "count": 3,
+        "total": 5398,
+        "a": 518,
+        "b": 617,
+        "c": 175,
+        "d": 191,
+        "order": [
+            {
+                "location": "l1",
+                "timestamp": "2023-01-01T15:55:06.283+08:00",
+                "signature": "NDgw",
+                "material": 1439,
+                "a": 149,
+                "b": 226,
+                "c": 85,
+                "d": 20
+            },
+            {
+                "location": "l1",
+                "timestamp": "2023-01-01T22:43:51.871+08:00",
+                "signature": "NDkz",
+                "material": 1722,
+                "a": 146,
+                "b": 250,
+                "c": 31,
+                "d": 66
+            },
+            {
+                "location": "l1",
+                "timestamp": "2023-01-01T15:10:23.436+08:00",
+                "signature": "NTI4",
+                "material": 2237,
+                "a": 223,
+                "b": 141,
+                "c": 59,
+                "d": 105
+            }
+        ]
+    }
+]

@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"sync"
 
 	"github.com/eddielin0926/ha-network-service/grpcpb/storage"
 )
@@ -9,15 +10,20 @@ import (
 type storageServer struct {
 	storage.UnimplementedStorageServer
 	records []*storage.Record
+	mu      *sync.Mutex
 }
 
 func NewStorageServer() *storageServer {
-	return &storageServer{}
+	return &storageServer{
+		mu: &sync.Mutex{},
+	}
 }
 
 func (s *storageServer) SaveRecord(ctx context.Context, in *storage.Record) (*storage.Response, error) {
 	r := *in
+	s.mu.Lock()
 	s.records = append(s.records, &r)
+	s.mu.Unlock()
 	return &storage.Response{Status: storage.Status_SUCCESS}, nil
 }
 
