@@ -1,12 +1,12 @@
 version: "3"
 services:
   business:
-    image: hans-business
+    image: eddielin0926/hans-business
     build: ./business
     environment:
       PORT: 8100
-      INVENTORY_URL: inventory:8200
-      STORAGE_URL: storage:8300
+      INVENTORY_URL: ${INVENTORY_URL}
+      STORAGE_URL: ${STORAGE_URL}
     ports:
       - 8100:8100
     depends_on:
@@ -15,14 +15,14 @@ services:
     networks:
       - hans
   inventory:
-    image: hans-inventory
+    image: eddielin0926/hans-inventory
     build: ./inventory
     environment:
       PORT: 8200
     networks:
       - hans
   storage:
-    image: hans-storage
+    image: eddielin0926/hans-storage
     build: ./storage
     environment:
       PORT: 8300
