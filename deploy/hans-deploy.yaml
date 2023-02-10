@@ -27,6 +27,13 @@ spec:
             secretKeyRef:
               name: database-secret
               key: database-password
+        volumeMounts:
+            - name: mysql-persistent-volume
+              mountPath: /var/lib/mysql
+      volumes: 
+        - name: mysql-persistent-volume
+          persistentVolumeClaim:
+            claimName: mysql-pvc
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -41,8 +48,6 @@ spec:
       labels:
         app: storage
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: tsmchack2023-gce-grp5-2
       containers:
       - name: storage
         image: eddielin0926/hans-storage
@@ -73,6 +78,16 @@ spec:
             configMapKeyRef:
               name: database-config
               key: database-name
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: "storage"
+                operator: In
+                values:
+                - tsmchack2023-gce-grp5-4
+            topologyKey: "kubernetes.io/hostname"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -87,8 +102,6 @@ spec:
       labels:
         app: inventory
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: tsmchack2023-gce-grp5-3
       containers:
       - name: inventory
         image: eddielin0926/hans-inventory
@@ -97,12 +110,23 @@ spec:
         env:
         - name: PORT
           value: "8200"
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: "storage"
+                operator: In
+                values:
+                - tsmchack2023-gce-grp5-3
+            topologyKey: "kubernetes.io/hostname"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: business
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: business
@@ -111,8 +135,6 @@ spec:
       labels:
         app: business
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: tsmchack2023-gce-grp5-4
       containers:
       - name: business
         image: eddielin0926/hans-business
@@ -135,3 +157,14 @@ spec:
               key: storage-url
         - name: STORAGE_PORT
           value: "8300"
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: "business"
+                operator: In
+                values:
+                - tsmchack2023-gce-grp5-1
+                - tsmchack2023-gce-grp5-2
+            topologyKey: "kubernetes.io/hostname"
