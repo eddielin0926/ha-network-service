@@ -1,6 +1,6 @@
 var server = {
-    host: "172.17.192.1",
-    port: 8100,
+    host: "127.0.0.1",
+    port: 80,
     send_endpoint: "api/order",
     report_endpoint: "api/report",
     record_endpoint: "api/record",
@@ -13,7 +13,7 @@ var server = {
     // Change Load Balance Testing Here
     VUs: 100,
     PerVUsIter: 100,
-    ts: "2023-01-01"
+    ts: "2023-01-02"
 };
 
 export {

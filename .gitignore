@@ -9,7 +9,7 @@
 *.dylib
 
 # Environment variable
-.env
+# .env
 
 # Build
 bin/
