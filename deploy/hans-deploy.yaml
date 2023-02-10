@@ -14,10 +14,6 @@ spec:
       containers:
       - name: database
         image: mysql:8.0
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - containerPort: 3306
         env:
@@ -45,13 +41,11 @@ spec:
       labels:
         app: storage
     spec:
+      nodeSelector:
+        hostname: tsmchack2023-gce-grp5-2
       containers:
       - name: storage
         image: eddielin0926/hans-storage
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - containerPort: 8300
         env:
@@ -93,13 +87,11 @@ spec:
       labels:
         app: inventory
     spec:
+      nodeSelector:
+        hostname: tsmchack2023-gce-grp5-3
       containers:
       - name: inventory
         image: eddielin0926/hans-inventory
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - containerPort: 8200
         env:
@@ -119,13 +111,11 @@ spec:
       labels:
         app: business
     spec:
+      nodeSelector:
+        hostname: tsmchack2023-gce-grp5-3
       containers:
       - name: business
         image: eddielin0926/hans-business
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - containerPort: 8100
         env:
