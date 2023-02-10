@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/eddielin0926/ha-network-service/business/initialize"
 	"github.com/eddielin0926/ha-network-service/business/routes"
 	"github.com/eddielin0926/ha-network-service/grpcpb/inventory"
 	"github.com/eddielin0926/ha-network-service/grpcpb/storage"
@@ -13,10 +12,6 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
-
-func init() {
-	initialize.LoadEnv()
-}
 
 func main() {
 	inventoryUrl := os.Getenv("INVENTORY_URL")
