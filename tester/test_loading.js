@@ -20,7 +20,7 @@ let cnt = 1;
 export default function () {
     data.location = 'l' + cnt++
     // const res = http.post(`https://www.google.com.tw/`, JSON.stringify(data), server.param)
-    const res = http.post(`http://127.0.0.1:8100/api/order`, JSON.stringify(data), server.param)
+    const res = http.post(`http://${server.host}:${server.port}/api/order`, JSON.stringify(data), server.param)
     check(res, {
         'status is 200': (r) => r.status === 200,
     });

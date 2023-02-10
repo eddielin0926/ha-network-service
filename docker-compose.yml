@@ -31,7 +31,6 @@ services:
   business2:
     image: eddielin0926/hans-business
     build: ./business
-    restart: always
     environment:
       PORT: 8100
       INVENTORY_URL: ${INVENTORY_URL}
