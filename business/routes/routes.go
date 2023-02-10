@@ -54,7 +54,8 @@ func (r *apiRoute) order(c *gin.Context) {
 		D: int32(body.Data.D),
 	})
 	if err != nil {
-		log.Fatalf("could not get material: %v", err)
+		log.Printf("could not get material: %v", err)
+		return
 	}
 
 	storCtx, storCancel := context.WithTimeout(context.Background(), time.Second)
@@ -70,10 +71,12 @@ func (r *apiRoute) order(c *gin.Context) {
 		D:         body.Data.D,
 	})
 	if err != nil {
-		log.Fatalf("could not store record: %v", err)
+		log.Printf("could not store record: %v", err)
+		return
 	}
 	if storRet.Status == storage.Status_FAIL {
-		log.Fatal("fail to store record")
+		log.Printf("fail to store record")
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"success": true})
@@ -98,7 +101,8 @@ func (r *apiRoute) record(ctx *gin.Context) {
 		Date:     date,
 	})
 	if err != nil {
-		log.Fatalf("could not store record: %v", err)
+		log.Printf("could not store record: %v", err)
+		return
 	}
 
 	bin, _ := grpcpb.ProtobufToJson(storRet)
@@ -130,7 +134,8 @@ func (r *apiRoute) report(ctx *gin.Context) {
 		Date:     date,
 	})
 	if err != nil {
-		log.Fatalf("could not store record: %v", err)
+		log.Printf("could not store record: %v", err)
+		return
 	}
 
 	bin, _ := grpcpb.ProtobufToJson(storRet)

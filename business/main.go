@@ -28,17 +28,27 @@ func main() {
 	storurl := fmt.Sprintf("%s:%s", storaddr, storport)
 
 	// Inventory gRPC
-	invConn, err := grpc.Dial(invurl, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+	var invErr error
+	var invConn *grpc.ClientConn
+	for i := 0; i < 10; i = i + 1 {
+		invConn, invErr = grpc.Dial(invurl, grpc.WithTransportCredentials(insecure.NewCredentials()))
+		if invErr == nil {
+			break
+		}
+		log.Printf("did not connect: %v", invErr)
 	}
 	defer invConn.Close()
 	invc := inventory.NewInventoryClient(invConn)
 
 	// Storage gRPC
-	storConn, err := grpc.Dial(storurl, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+	var storErr error
+	var storConn *grpc.ClientConn
+	for i := 0; i < 10; i = i + 1 {
+		storConn, storErr = grpc.Dial(storurl, grpc.WithTransportCredentials(insecure.NewCredentials()))
+		if storErr == nil {
+			break
+		}
+		log.Printf("did not connect: %v", storErr)
 	}
 	defer storConn.Close()
 	storc := storage.NewStorageClient(storConn)
