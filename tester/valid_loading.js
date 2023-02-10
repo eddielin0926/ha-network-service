@@ -43,10 +43,10 @@ export default function () {
 
     check(res1, {
         '> Record Status is 200': (r) => r.status === 200,
-        '> Record is Correct': (r) => Check_Record(r),
+        '> Record is Correct': (r) => Check_Record(JSON.parse(r)),
     });
     check(res2, {
         '> Report Status is 200': (r) => r.status === 200,
-        '> Report is Correct': (r) => Check_Report(r),
+        '> Report is Correct': (r) => Check_Report(JSON.parse(r)),
     });
 }

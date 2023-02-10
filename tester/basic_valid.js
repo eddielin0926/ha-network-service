@@ -47,13 +47,12 @@ export default function () {
     // const res2 = http.get(`https://www.google.com.tw?location=${ans.location}&date=${ans.timestamp}`)
     const res1 = http.get(`http://${server.host}:${server.port}/${server.record_endpoint}?location=${ans.location}&date=${ans.timestamp}`)
     const res2 = http.get(`http://${server.host}:${server.port}/${server.report_endpoint}?location=${ans.location}&date=${ans.timestamp}`)
-
     check(res1, {
         '> Record Status is 200': (r) => r.status === 200,
-        '> Record is Correct': (r) => Check_Record(r, ans.order),
+        '> Record is Correct': (r) => Check_Record(JSON.parse(r.body), ans.order),
     });
     check(res2, {
         '> Report Status is 200': (r) => r.status === 200,
-        '> Report is Correct': (r) => Check_Report(r, ans),
+        '> Report is Correct': (r) => Check_Report(JSON.parse(r.body), ans),
     });
 }

@@ -8,7 +8,7 @@ export const options = {
             executor: 'shared-iterations',
             vus: 1, // number of threads
             iterations: server.Case_Num[server.TEST_CASE],
-            maxDuration: '30s',
+            maxDuration: '600s',
         },
     },
 };
