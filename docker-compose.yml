@@ -1,14 +1,43 @@
 version: "3"
 services:
-  business:
+  proxy:
+    container_name: hans-proxy
+    image: nginx:1.23.3-alpine
+    ports:
+      - 80:80
+    depends_on:
+      - business1
+      - business2
+    volumes:
+      - ./loadbalance/nginx.conf:/etc/nginx/nginx.conf
+    restart: always
+    networks:
+      - hans
+  business1:
     image: eddielin0926/hans-business
     build: ./business
+    restart: always
     environment:
       PORT: 8100
       INVENTORY_URL: ${INVENTORY_URL}
       STORAGE_URL: ${STORAGE_URL}
     ports:
-      - 8100:8100
+      - 8100
+    depends_on:
+      - inventory
+      - storage
+    networks:
+      - hans
+  business2:
+    image: eddielin0926/hans-business
+    build: ./business
+    restart: always
+    environment:
+      PORT: 8100
+      INVENTORY_URL: ${INVENTORY_URL}
+      STORAGE_URL: ${STORAGE_URL}
+    ports:
+      - 8100
     depends_on:
       - inventory
       - storage
@@ -17,6 +46,7 @@ services:
   inventory:
     image: eddielin0926/hans-inventory
     build: ./inventory
+    restart: always
     environment:
       PORT: 8200
     networks:
@@ -24,6 +54,7 @@ services:
   storage:
     image: eddielin0926/hans-storage
     build: ./storage
+    restart: always
     environment:
       PORT: 8300
     networks:

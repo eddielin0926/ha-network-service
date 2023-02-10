@@ -17,7 +17,10 @@ export const options = {
 const TotalCount = server.VUs * server.PerVUsIter
 
 function Check_Record(r) {
-    if (r.length != TotalCount) return false
+    if (r.length != server.VUs) {
+        console.log(`r.length / server.VUs: ${r.length * 100.0 /server.VUs}`)
+        return false
+    }
     for (let t = 0; t < r.length; ++t) {
         let res = r[t].location == "l" + cnt && r[t].timestamp == server.ts + "T00:00:00.000+08:00"
         res &= r[t].signature == "NA==" && r[t].material == 19
@@ -40,8 +43,8 @@ export default function () {
     cnt++
     // const res1 = http.get(`https://www.google.com.tw?location=l${cnt}&date=2023-01-01`)
     // const res2 = http.get(`https://www.google.com.tw?location=l${cnt}&date=2023-01-01`)
-    const res1 = http.get(`http://127.0.0.1:8100/api/record?location=l${cnt}&date=2023-01-01`)
-    const res2 = http.get(`http://127.0.0.1:8100/api/report?location=l${cnt}&date=2023-01-01`)
+    const res1 = http.get(`http://127.0.0.1:8100/api/record?location=l${cnt}&date=${server.ts}`)
+    const res2 = http.get(`http://127.0.0.1:8100/api/report?location=l${cnt}&date=${server.ts}`)
     check(res1, {
         '> Record Status is 200': (r) => r.status === 200,
         '> Record is Correct': (r) => Check_Record(JSON.parse(r.body)),

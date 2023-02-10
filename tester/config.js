@@ -11,9 +11,9 @@ var server = {
     TEST_CASE: 1,
 
     // Change Load Balance Testing Here
-    VUs: 100,
-    PerVUsIter: 100,
-    ts: "2023-01-01"
+    VUs: 200,
+    PerVUsIter: 50,
+    ts: "2023-01-04"
 };
 
 export {
