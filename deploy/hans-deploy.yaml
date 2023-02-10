@@ -42,7 +42,7 @@ spec:
         app: storage
     spec:
       nodeSelector:
-        hostname: tsmchack2023-gce-grp5-4
+        kubernetes.io/hostname: tsmchack2023-gce-grp5-2
       containers:
       - name: storage
         image: eddielin0926/hans-storage
@@ -88,7 +88,7 @@ spec:
         app: inventory
     spec:
       nodeSelector:
-        hostname: tsmchack2023-gce-grp5-2
+        kubernetes.io/hostname: tsmchack2023-gce-grp5-3
       containers:
       - name: inventory
         image: eddielin0926/hans-inventory
@@ -112,7 +112,7 @@ spec:
         app: business
     spec:
       nodeSelector:
-        hostname: tsmchack2023-gce-grp5-2
+        kubernetes.io/hostname: tsmchack2023-gce-grp5-4
       containers:
       - name: business
         image: eddielin0926/hans-business
