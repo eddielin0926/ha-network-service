@@ -32,7 +32,7 @@ services:
 
   inventory:
     image: eddielin0926/hans-inventory
-    build: ./inventory
+    build: ../inventory
     restart: always
     environment:
       PORT: 8200
@@ -41,7 +41,7 @@ services:
 
   storage:
     image: eddielin0926/hans-storage
-    build: ./storage
+    build: ../storage
     restart: always
     environment:
       PORT: 8300
