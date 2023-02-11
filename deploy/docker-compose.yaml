@@ -5,16 +5,13 @@ services:
     image: nginx:1.23.3-alpine
     ports:
       - 80:80
-    depends_on:
-      - business1
-      - business2
     volumes:
-      - ./loadbalance/nginx.conf:/etc/nginx/nginx.conf
+      - ../loadbalance/nginx.conf:/etc/nginx/nginx.conf
     restart: always
 
   business1:
     image: eddielin0926/hans-business
-    build: ./business
+    build: ../business
     restart: always
     environment:
       PORT: 8100
@@ -25,7 +22,7 @@ services:
 
   business2:
     image: eddielin0926/hans-business
-    build: ./business
+    build: ../business
     environment:
       PORT: 8100
       INVENTORY_URL: ${INVENTORY_URL}
@@ -39,10 +36,14 @@ services:
     restart: always
     environment:
       PORT: 8200
+    ports:
+      - 8200:8200
 
   storage:
     image: eddielin0926/hans-storage
     build: ./storage
     restart: always
     environment:
-      PORT: 8300:8300
+      PORT: 8300
+    ports:
+      - 8300:8300
