@@ -1,11 +1,13 @@
 # High Availability Network Service
 
+![architecture](./images/architecture.png)
+
 ## Perquisites
 
 - Go
 - Docker
 
-## Start 
+## Start
 
 Ensure the `.env` is in the project root folder and variables are set.
 
@@ -21,7 +23,7 @@ docker-compose config
 docker-compose up -d --build
 ```
 
-### Stop Docker Compose 
+### Stop Docker Compose
 
 ```shell
 docker-compose down
@@ -29,7 +31,7 @@ docker-compose down
 
 ## Kubernetes
 
-### Docker 
+### Docker
 
 ### Start
 
